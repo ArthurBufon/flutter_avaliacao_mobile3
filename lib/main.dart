@@ -5,6 +5,9 @@ void main() {
   runApp(const MyApp());
 }
 
+// Color scheme.
+const primaryColor = Color.fromARGB(255, 92, 50, 232);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,7 +18,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, //retira faixa debug
       title: 'Meu APP',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: primaryColor,
+        appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 92, 50, 232),
+        ),
+        buttonTheme: const ButtonThemeData(
+          buttonColor: Color.fromARGB(255, 92, 50, 232),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color.fromARGB(255, 92, 50, 232),
+          foregroundColor: Colors.white,
+        ),
       ),
       home: const LoginPage(),
     );

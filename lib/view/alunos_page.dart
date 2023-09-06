@@ -27,9 +27,13 @@ class _AlunosPageState extends State<AlunosPage> {
 
   @override
   Widget build(BuildContext context) {
+    // PrimaryColor.
+    Color primaryColor = Theme.of(context).primaryColor;
+
+    // Scaffold.
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Alunos")),
+        title: const Center(child: Text("Alunos")),
       ),
       body: FutureBuilder<List<AlunoEntity>>(
         future: future,
@@ -41,12 +45,12 @@ class _AlunosPageState extends State<AlunosPage> {
                 return Card(
                   child: Slidable(
                     endActionPane: ActionPane(
-                      motion: ScrollMotion(),
+                      motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
                           onPressed: (context) {},
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.black,
+                          backgroundColor: primaryColor,
+                          foregroundColor: Colors.white,
                           icon: Icons.edit,
                           label: "Alterar",
                         ),
@@ -72,7 +76,7 @@ class _AlunosPageState extends State<AlunosPage> {
               },
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
