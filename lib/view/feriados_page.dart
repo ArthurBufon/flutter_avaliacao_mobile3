@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avaliacao_mobile3/controller/feriado_controller.dart';
 import 'package:flutter_avaliacao_mobile3/model/feriado_model.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 class FeriadosPage extends StatefulWidget {
   const FeriadosPage({super.key});
@@ -13,10 +13,13 @@ class FeriadosPage extends StatefulWidget {
 class _FeriadosPageState extends State<FeriadosPage> {
   FeriadoController feriadoController = FeriadoController();
 
-  // Lista de feriados.
+  // Formatar data.
+  final f = DateFormat('yyyy-MM-dd hh:mm');
+
+  // Inicializando lista de feriados.
   late Future<List<Feriado>> future;
 
-  // Função busca todos os feriados.
+  // Retorna lista com todos os feriados.
   Future<List<Feriado>> getFeriados() async {
     return feriadoController.getFeriadosList();
   }
@@ -35,63 +38,119 @@ class _FeriadosPageState extends State<FeriadosPage> {
     // Scaffold.
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Feriados")),
+        title: const Center(
+          child: Text("Feriados 2023"),
+        ),
       ),
-      body: FutureBuilder<List<Feriado>>(
-        future: future,
-        builder: (context, AsyncSnapshot<List<Feriado>> snapshot) {
-          // Lista com todos os feriados.
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  child: Card(
-                    child: Slidable(
-                      endActionPane: ActionPane(
-                        motion: const ScrollMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) {},
-                            backgroundColor: primaryColor,
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit,
-                            label: "Alterar",
-                          ),
-                          SlidableAction(
-                            onPressed: (context) {},
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: "Excluir",
-                          ),
-                        ],
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: primaryColor,
-                          child: Text("A"),
-                        ),
-                        title: Text('${snapshot.data![index].date}'),
-                        subtitle: Text('${snapshot.data![index].name}'),
-                      ),
-                    ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            // Header.
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: primaryColor,
+              ),
+              child: const Center(
+                  child: Text(
+                'Alunos App',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )),
+            ),
+
+            // Alunos
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Alunos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FeriadosPage(),
                   ),
                 );
               },
-            );
-          } 
-          // Se não tiver dados, exibe widget carregando...
-          else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+            ),
+
+            // Feriados
+            ListTile(
+              leading: const Icon(Icons.calendar_month),
+              title: const Text('Feriados'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FeriadosPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {},
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: FutureBuilder<List<Feriado>>(
+          future: future,
+          builder: (context, AsyncSnapshot<List<Feriado>> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 222, 222, 222),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                    ),
+                    child: Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.calendar_month),
+                        // title: Text(
+                        //   '${snapshot.data![index].date}',
+                        // style: const TextStyle(
+                        //   fontSize: 20,
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                        // ),
+                        title: Text(
+                          '${snapshot.data![index].name}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          DateFormat("d 'de' MMMM 'de' y").format(
+                            DateTime.parse(snapshot.data![index].date!),
+                          ),
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

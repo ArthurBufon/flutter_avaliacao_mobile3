@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avaliacao_mobile3/login_page.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
 void main() {
   runApp(const MyApp());

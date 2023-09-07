@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avaliacao_mobile3/model/aluno_model.dart';
 import 'package:flutter_avaliacao_mobile3/controller/aluno_controller.dart';
+import 'package:flutter_avaliacao_mobile3/view/feriados_page.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class AlunosPage extends StatefulWidget {
@@ -35,7 +36,60 @@ class _AlunosPageState extends State<AlunosPage> {
     // Scaffold.
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Alunos")),
+        title: const Center(
+          child: Text("Alunos"),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            // Header.
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: primaryColor,
+              ),
+              child: const Center(
+                  child: Text(
+                'Alunos App',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )),
+            ),
+
+            // Alunos
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Alunos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AlunosPage(),
+                  ),
+                );
+              },
+            ),
+
+            // Feriados
+            ListTile(
+              leading: const Icon(Icons.calendar_month),
+              title: const Text('Feriados'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FeriadosPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
