@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avaliacao_mobile3/controller/feriado_controller.dart';
 import 'package:flutter_avaliacao_mobile3/model/feriado_model.dart';
+import 'package:flutter_avaliacao_mobile3/view/alunos_page.dart';
 import 'package:intl/intl.dart';
 
 class FeriadosPage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _FeriadosPageState extends State<FeriadosPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FeriadosPage(),
+                    builder: (context) => const AlunosPage(),
                   ),
                 );
               },
