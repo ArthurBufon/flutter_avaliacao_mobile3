@@ -71,7 +71,7 @@ class _FeriadosPageState extends State<FeriadosPage> {
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Colors.brown.shade800,
+                          backgroundColor: primaryColor,
                           child: Text("A"),
                         ),
                         title: Text('${snapshot.data![index].date}'),

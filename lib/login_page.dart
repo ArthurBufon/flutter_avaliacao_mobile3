@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
-              child: Image.asset("images/logotipo_firma.png"),
+              // child: Image.asset("images/logotipo_firma.png"),
             ),
           ),
           const SizedBox(

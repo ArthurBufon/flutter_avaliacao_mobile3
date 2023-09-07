@@ -13,8 +13,10 @@ class AlunosPage extends StatefulWidget {
 class _AlunosPageState extends State<AlunosPage> {
   AlunoController alunoController = AlunoController();
 
+  // Inicializando lista de alunos.
   late Future<List<AlunoEntity>> future;
 
+  // Retorna lista com todos os alunos.
   Future<List<AlunoEntity>> getAlunos() async {
     return alunoController.getAlunosList();
   }
@@ -35,55 +37,64 @@ class _AlunosPageState extends State<AlunosPage> {
       appBar: AppBar(
         title: const Center(child: Text("Alunos")),
       ),
-      body: FutureBuilder<List<AlunoEntity>>(
-        future: future,
-        builder: (context, AsyncSnapshot<List<AlunoEntity>> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Card(
-                    child: Slidable(
-                      endActionPane: ActionPane(
-                        motion: const ScrollMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) {},
-                            backgroundColor: primaryColor,
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit,
-                            label: "Alterar",
-                          ),
-                          SlidableAction(
-                            onPressed: (context) {},
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: "Excluir",
-                          ),
-                        ],
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.brown.shade800,
-                          child: Text("A"),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: FutureBuilder<List<AlunoEntity>>(
+          future: future,
+          builder: (context, AsyncSnapshot<List<AlunoEntity>> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 222, 222, 222),
+                          blurRadius: 10.0,
                         ),
-                        title: Text('${snapshot.data![index].nome}'),
-                        subtitle: Text('${snapshot.data![index].email}'),
+                      ],
+                    ),
+                    child: Card(
+                      child: Slidable(
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {},
+                              backgroundColor: primaryColor,
+                              foregroundColor: Colors.white,
+                              icon: Icons.edit,
+                              label: "Alterar",
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete,
+                              label: "Excluir",
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: primaryColor,
+                            child: Text(snapshot.data![index].nome![0]),
+                          ),
+                          title: Text('${snapshot.data![index].nome}'),
+                          subtitle: Text('${snapshot.data![index].email}'),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+                  );
+                },
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

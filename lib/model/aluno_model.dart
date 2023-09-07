@@ -16,7 +16,7 @@ class AlunoEntity {
   static AlunoEntity mapToEntity(Map<String, dynamic> map) {
     return AlunoEntity(
       id: map['id'] ?? '',
-      nome: map['nome'] ?? '',
+      nome: map['name'] ?? '',
       email: map['email'] ?? '',
       idade: map['idade'] ?? '',
     );
