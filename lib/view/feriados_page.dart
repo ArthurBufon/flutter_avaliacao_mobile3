@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_avaliacao_mobile3/model/aluno_model.dart';
-import 'package:flutter_avaliacao_mobile3/controller/aluno_controller.dart';
+import 'package:flutter_avaliacao_mobile3/controller/feriado_controller.dart';
+import 'package:flutter_avaliacao_mobile3/model/feriado_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class AlunosPage extends StatefulWidget {
-  const AlunosPage({super.key});
+class FeriadosPage extends StatefulWidget {
+  const FeriadosPage({super.key});
 
   @override
-  State<AlunosPage> createState() => _AlunosPageState();
+  State<FeriadosPage> createState() => _FeriadosPageState();
 }
 
-class _AlunosPageState extends State<AlunosPage> {
-  AlunoController alunoController = AlunoController();
+class _FeriadosPageState extends State<FeriadosPage> {
+  FeriadoController feriadoController = FeriadoController();
 
-  late Future<List<AlunoEntity>> future;
+  // Lista de feriados.
+  late Future<List<Feriado>> future;
 
-  Future<List<AlunoEntity>> getAlunos() async {
-    return alunoController.getAlunosList();
+  // Função busca todos os feriados.
+  Future<List<Feriado>> getFeriados() async {
+    return feriadoController.getFeriadosList();
   }
 
   @override
   void initState() {
     super.initState();
-    future = getAlunos();
+    future = getFeriados();
   }
 
   @override
@@ -33,19 +35,19 @@ class _AlunosPageState extends State<AlunosPage> {
     // Scaffold.
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Alunos")),
+        title: const Center(child: Text("Feriados")),
       ),
-      body: FutureBuilder<List<AlunoEntity>>(
+      body: FutureBuilder<List<Feriado>>(
         future: future,
-        builder: (context, AsyncSnapshot<List<AlunoEntity>> snapshot) {
+        builder: (context, AsyncSnapshot<List<Feriado>> snapshot) {
+          // Lista com todos os feriados.
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20)
-                  ),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: Card(
                     child: Slidable(
                       endActionPane: ActionPane(
@@ -72,15 +74,17 @@ class _AlunosPageState extends State<AlunosPage> {
                           backgroundColor: Colors.brown.shade800,
                           child: Text("A"),
                         ),
-                        title: Text('${snapshot.data![index].nome}'),
-                        subtitle: Text('${snapshot.data![index].email}'),
+                        title: Text('${snapshot.data![index].date}'),
+                        subtitle: Text('${snapshot.data![index].name}'),
                       ),
                     ),
                   ),
                 );
               },
             );
-          } else {
+          } 
+          // Se não tiver dados, exibe widget carregando...
+          else {
             return const Center(child: CircularProgressIndicator());
           }
         },
