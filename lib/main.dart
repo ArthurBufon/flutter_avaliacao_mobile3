@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avaliacao_mobile3/login_page.dart';
-import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +31,11 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
+      localizationsDelegates: const[
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const[ Locale('pt', 'BR')],
       home: const LoginPage(),
     );
   }

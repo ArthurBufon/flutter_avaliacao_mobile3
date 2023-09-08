@@ -54,14 +54,15 @@ class _FeriadosPageState extends State<FeriadosPage> {
                 color: primaryColor,
               ),
               child: const Center(
-                  child: Text(
-                'Alunos App',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                child: Text(
+                  'Alunos App',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              )),
+              ),
             ),
 
             // Alunos
@@ -116,27 +117,20 @@ class _FeriadosPageState extends State<FeriadosPage> {
                     child: Card(
                       child: ListTile(
                         leading: const Icon(Icons.calendar_month),
-                        // title: Text(
-                        //   '${snapshot.data![index].date}',
-                        // style: const TextStyle(
-                        //   fontSize: 20,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
-                        // ),
                         title: Text(
                           '${snapshot.data![index].name}',
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(
-                          DateFormat("d 'de' MMMM 'de' y").format(
+                          DateFormat("d 'de' MMMM 'de' y", 'pt_BR').format(
                             DateTime.parse(snapshot.data![index].date!),
                           ),
                           style: TextStyle(
                             color: Colors.grey[500],
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
