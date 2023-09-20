@@ -134,7 +134,7 @@ class _AlunosPageState extends State<AlunosPage> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: primaryColor,
-                            child: Text(snapshot.data![index].nome![0]),
+                            child: Text(alunoController.getInitials(snapshot.data![index].nome!)),
                           ),
                           title: Text('${snapshot.data![index].nome}'),
                           subtitle: Text('${snapshot.data![index].email}'),
